@@ -1,0 +1,9 @@
+etc/api-paste-gunicorn.ini etc/magnetodb 
+etc/api-paste.ini  etc/magnetodb
+etc/api-paste-test.ini  etc/magnetodb
+etc/magnetodb-api.conf  etc/magnetodb
+etc/magnetodb-api-server.conf  etc/magnetodb
+etc/magnetodb-api-server-gunicorn.conf  etc/magnetodb
+etc/magnetodb-api-test.conf etc/magnetodb
+debian/openstack-magnetodb-api etc/init.d/
+debian/openstack-magnetodb-api-gunicorn etc/init.d/

@@ -1,0 +1,32 @@
+Source: magnetodb
+Section: unknown
+Priority: extra
+Maintainer: root <root@unknown>
+Build-Depends: debhelper (>= 7.0.50),
+ python-all (>= 2.6),
+ python-all-dev (>= 2.6.6-3~),
+ sqlite3
+Build-Depends-Indep:
+ python-concurrent.futures,
+ python-gevent,
+ gunicorn,
+ python-iso8601,
+ python-jsonschema,
+ python-oslo.config,
+ python-pbr,
+ python-keystoneclient,
+ python-babel,
+ python-pastedeploy,
+ python-routes,
+ python-webob,
+# python-greenlet (>= 0.3.2)
+Standards-Version: 3.9.2
+Homepage: url
+#Vcs-Git: git://git.debian.org/collab-maint/magnetodb.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/magnetodb.git;a=summary
+
+Package: magnetodb
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

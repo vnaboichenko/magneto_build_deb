@@ -1,0 +1,552 @@
+magnetodb (2012.1.3+stable-20130423-74b067df-0ubuntu1) precise-proposed; urgency=low
+
+  * Resynchronize with stable/essex (74b067df) (LP: #1089488):
+    - [74b067d] v1 api returns location as header for cached images LP: 1135541
+    - [37d4d96] magnetodb image-download can display backend Swift password
+      LP: 1098962
+    - [efd7e75] Non-admin users can cause public magnetodb images to be deleted
+      from the backend storage repository (LP: #1065187)
+    - [e6be061] Jenkins jobs fail because of incompatibility between sqlalchemy-
+      migrate and the newest sqlalchemy-0.8.0b1 (LP: #1073569)
+  * Dropped patches, superseeded by snapshot:
+    - debian/patches/CVE-2013-1840.patch [74b067d]
+    - debian/patches/CVE-2013-0212.patch [37d4d96]
+    - debian/patches/CVE-2012-4573.patch [efd7e75]
+
+ -- Yolanda <yolanda.robla@canonical.com>  Wed, 24 Apr 2013 14:58:09 +0200
+
+magnetodb (2012.1.3+stable~20120821-120fcf-0ubuntu1.5) precise-security; urgency=low
+
+  * SECURITY UPDATE: fix information disclosure via Glance v1 API
+    - debian/patches/CVE-2013-1840.patch: adjust api/middleware/cache.py to
+      not show image_meta['location']
+    - CVE-2013-1840
+    - LP: #1135541
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Thu, 14 Mar 2013 15:06:48 -0500
+
+magnetodb (2012.1.3+stable~20120821-120fcf-0ubuntu1.3) precise-security; urgency=low
+
+  * SECURITY UPDATE: information disclosure via swift error messages
+    - debian/patches/CVE-2013-0212.patch: adjust magnetodb/store/swift.py to
+      mot show URLs and credentials in error messages and log output
+    - CVE-2013-0212
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Mon, 28 Jan 2013 13:51:45 -0600
+
+magnetodb (2012.1.3+stable~20120821-120fcf-0ubuntu1.2) precise-security; urgency=low
+
+  * SECURITY UPDATE: deletion of arbitrary public and shared images via
+    authenticated user
+    - debian/patches/CVE-2012-4573.patch: adjust magnetodb/api/v1/images.py to
+      ensure image is owned by user before delayed_deletion
+    - CVE-2012-4573
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Thu, 08 Nov 2012 07:19:39 -0600
+
+magnetodb (2012.1.3+stable~20120821-120fcf-0ubuntu1) precise-proposed; urgency=low
+
+  * New upstream snapshot. (LP: #1041120)
+  * Resynchronzie with stable/essex:
+    - Glance add uploads a double image if using ssl and images is smaller
+      than 4k. (LP: #1007093)
+    - If response.environ is None, instance fails to spawn.
+      (LP: #1010560)
+    - exception.BadStoreURL exposes sensitive information to end users.
+      (LP: #1012268)
+    - magnetodb-cache.conf needs metadata encryption key (LP: #1012752)
+    - image.upload notification doesn't report size (LP: #1018246)
+    - Admins should be able to share image regardless of ownership.
+      (LP: #1021054)
+    - Glance scrubber date formatting fails with postgres (LP: #1022369)
+    - Support zero-size image creation. (LP: #1025353)
+    - Image id not contained in swift chunk debug message. (LP: #1028433)
+    - qpid_heartbeat setting is ineffective. (LP: #1032314)
+    - Image properties that reference image ids are not updated to UUIDs.
+      (LP: #975651)
+    - Migration 012_id_to_uuid attempts to convert IDs twice for non-sqlite 
+      databases. (LP: #975655)
+    - multiprocess magnetodb-api failed to exit when stopped by ctrl+c.
+      (LP: #978130)
+    - /usr/bin/magnetodb's built-in pager breaks redirection.
+      (LP: #978610)
+    - Content-Length and Transfer-Encoding are mutually exclusive HTTP headers
+      (LP: #981332)
+    - magnetodb add command - incorrect help text (LP: #997565)
+  * debian/patches/convert_properties_to_uuid.patch: Dropped no longer
+    needed.
+  * debian/patches/fix-pep8-ubuntu.patch: Dropped no longer needed.
+
+ -- Adam Gandelman <adamg@canonical.com>  Fri, 24 Jun 2012 03:14:33 -0400
+
+magnetodb (2012.1+stable~20120608-5462295-0ubuntu2.2) precise-proposed; urgency=low
+
+  * New usptream snapshot. (LP: #1010473)
+  * Resynchronize with stable/essex: 
+   - 5462295 Fix i18n in magnetodb.notifier.notify_kombu. (LP: #983829)
+   - 7a9e3a7 Omit Content-Length on chunked transfer. (LP: #981332)
+   - 5838b63 Fix content type for qpid notifier. (LP: #980872)
+   - 98913da search for logger in PATH. Fixes (LP: #978907)
+   - f136e7e Ensure swift auth URL includes trailing slash. Fixes (LP: #979745)
+  * debian/rules: Add ability to build tarballs from a git snapshot.
+  * debian/patches/fix-pep8-ubuntu.patch: Fix pep8 errors.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 05 Jun 2012 10:43:12 -0400
+
+magnetodb (2012.1-0ubuntu2.1) precise; urgency=low
+
+  * debian/patches/disable-swift-tests.patch: Fix indentation, allowing tests
+    to pass when not run on buildds or other constrained environments,
+    refreshed.
+
+ -- Adam Gandelman <adamg@canonical.com>  Tue, 29 May 2012 10:20:52 -0700
+
+magnetodb (2012.1-0ubuntu2) precise; urgency=low
+
+  [ Adam Gandelman ]
+  * debian/patches/disable_db_table_auto_create.patch: Disable auto-creation
+    of database schema at service start, inspect for consistenty and advise
+    running manual migrations instead.
+  * debian/patches/fix_migration_012_foreign_keys.patch: Fix a migration issue
+    around missing FKs. Cherry-picked from upstream.  Can be dropped with
+    first stable update.
+  * debian/patches/convert_properties_to_uuid.patch: Fixes migration 012 to
+    also convert kernel_id and ramdisk_ids to UUID. Cherry picked from upstream.
+    Can be dropped with first stable update (LP: #975651)
+  * debian/magnetodb-common.postinst: Clean up, fix purging issue due to poor
+    us of conditionals
+  * debian/magnetodb-registry.postinst:  Ensure new database is version_controlled
+    before first call of db_sync. 
+
+  [ Chuck Short ]
+  * debian/control: Fix upgrades from oneiric to precise. (LP: #974592)
+
+ -- Adam Gandelman <adamg@canonical.com>  Thu, 12 Apr 2012 15:02:08 -0700
+
+magnetodb (2012.1-0ubuntu1) precise; urgency=low
+
+  * New upstream release. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 05 Apr 2012 10:24:28 -0400
+
+magnetodb (2012.1~rc3-0ubuntu1) precise; urgency=low
+
+  * New upstream release. 
+  * debian/control: Add sqlite3 as a Build-Depends (for test suite)
+
+ -- Adam Gandelman <adamg@canonical.com>  Tue, 03 Apr 2012 16:06:52 -0700
+
+magnetodb (2012.1~rc2-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * debian/rules: Fail build if testsuite fails.
+  * debian/patches/disable-swift-tests.patch: Disable swift tests that
+    require a swift server setup.
+  * debian/patches/disable-network-for-docs.patch: Disable network for
+    building docs.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 02 Apr 2012 10:52:36 -0400
+
+magnetodb (2012.1~rc1-0ubuntu2) precise; urgency=low
+
+  * New upstream release. This is hopefully the last release before
+    final. 
+  * debian/patches/0001-Fix-depreceated-warnings.patch: Dropped.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 21 Mar 2012 09:47:54 -0400
+
+magnetodb (2012.1~rc1~20120316.1354-0ubuntu1) precise; urgency=low
+
+  * New upstream release. 
+
+ -- Adam Gandelman <adamg@canonical.com>  Fri, 16 Mar 2012 16:23:34 -0400
+
+magnetodb (2012.1~rc1~20120309.1315-0ubuntu2) precise; urgency=low
+
+  * debian/magnetodb-common.postinst
+    - Give adm group read permission to /var/log/magnetodb (LP: #950935)
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Fri, 09 Mar 2012 11:04:43 -0500
+
+magnetodb (2012.1~rc1~20120309.1315-0ubuntu1) precise; urgency=low
+
+  * New upstream version.
+  * debian/control, debian/magnetodb-client.install,
+    magnetodb-common.install: Add magnetodb-client package. (LP: #928378) 
+  * debian/watch: Fix watch file.
+  * Fix lintian warnings.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 09 Mar 2012 11:33:12 -0500
+
+magnetodb (2012.1~e4-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * debian/control: Add python date-util. (LP: #943748)
+  * debian/control: Add ca-certificates. (LP: #932800)
+  * debian/control: Add python-iso8601 to fix testsuite failures.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 06 Mar 2012 09:30:41 -0500
+
+magnetodb (2012.1~e4~20120224.1290-0ubuntu1) precise; urgency=low
+
+  [ Adam Gandelman ]
+  * debian/control: Add new dependency to python-magnetodb: python-iso8601.
+
+  [ Chuck Short ]
+  * New upstream release.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 01 Mar 2012 09:04:54 -0500
+
+magnetodb (2012.1~e4~20120217.1275-0ubuntu1) precise; urgency=low
+
+  [ Chuck Short ]
+  * New upstream release.
+
+  [ Dave Walker (Daviey ]
+  * debian/patches/fix-broken-unittests.patch: Back out patch as it seems 
+    to be present in upstream git, but missing in upstream tarballs. Which
+    is blocking CI testing.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 17 Feb 2012 09:50:40 -0500
+
+magnetodb (2012.1~e4~20120209.1254-0ubuntu1) precise; urgency=low
+
+  * New upstream version.
+  * debian/patches/fix-broken-unittests.patch: Fix broken unittests.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 10 Feb 2012 10:04:58 -0500
+
+magnetodb (2012.1~e3-0ubuntu1) precise; urgency=low
+
+  [Chuck Short]
+  * New upstream version.
+  * debian/control: Add python-crypto as a build dependency.
+
+  [Adam Gandleman]
+  * debian/magnetodb-api.install: Add policy.json
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 26 Jan 2012 09:22:37 -0500
+
+magnetodb (2012.1~e3~20120120.1206-0ubuntu1) precise; urgency=low
+
+  [Chuck Short]
+  * New upstream release.
+
+  [Adam Gandleman]
+  * debian/magnetodb-api.install, magnetodb-registry.install:  Install
+    new paste configs that have been split among servers.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 20 Jan 2012 14:37:16 -0500
+
+magnetodb (2012.1~e3~20120112.1060-0ubuntu1) precise; urgency=low
+  
+  [Chuck Short]
+  * New upstream release.
+  * Drop debian/pyversions.
+  * debian/magnetodb-api.logrotate, debian/magnetodb-registry.logroate:
+    Add logrotate files. (LP: #904216)
+  * Update vcs information.
+  * Fix up some lintian warnings.
+  
+  [Adam Gandleman]
+  * debian/control: Drop python-support from Build-Depends
+  * debian/python-magnetodb.postinst: Removed. python-support is needed
+    for update-python-modules but not a dependency.  Let dh_python2
+    generate instead. (LP: #907543)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 13 Jan 2012 10:50:40 +0100
+
+magnetodb (2012.1~e2-0ubuntu4) precise; urgency=low
+
+  * python-magnetodb.postinst: Remove, obsolete call to update-python-modules.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 02 Jan 2012 13:02:24 +0100
+
+
+magnetodb (2012.1~e2-0ubuntu2) precise; urgency=low
+
+  * debian/magnetodb-registry.postinst: Fix typo in postinst. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 15:57:19 -0500
+
+magnetodb (2012.1~e2-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * Merge upstream debian packaging changes. 
+  * debian/*.upstart: Move upstart jobs to the approiate packages.
+  * debian/magnetodb-api.postinst, debian/magnetodb-registry.postinst:
+    Move configuration into magnetodb-common.postinst, because it was 
+    doing the same thing.
+  * debian/magnetodb-common.prerm: Dropped, remove cruft.
+  * debian/magnetodb-api.prerm: Fixed bashism.
+  * debian/magnetodb-registry.prerm: Fixed bashism.
+  * debian/magnetodb-common.postinst: Change shell back to /bin/false.
+  * debian/magnetodb.dirs, debian/magnetodb-common.dirs: Merged, removed
+    unecessary magnetodb.dirs.
+  * debian/control: Re-add missing python-dependencies.
+  * debian/magnetodb-registry.postinst: Create the database when installing
+    magnetodb-registry.
+  * debian/magnetodb-common.postin: Re-add approiate permissions.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 14:19:59 -0500
+
+magnetodb (2012.1~e2~20111209.1132-0ubuntu2) precise; urgency=low
+
+  [ Adam Gandelman ]
+  * debian/magnetodb.postinst: Specify shell when migrating sqllite
+    database as magnetodb user. (LP: #902429) 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 12 Dec 2011 10:18:49 -0500
+
+magnetodb (2012.1~e2~20111209.1132-0ubuntu1) precise; urgency=low
+
+  * debian/magnetodb.postinst, debian/magnetodb.magnetodb-api.upstart,
+    magnetodb.magnetodb-registry.upstart: Switch shell to /bin/false.
+    (LP: #890362)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 09 Dec 2011 15:34:33 -0500
+
+magnetodb (2012.1~e2~20111201.1123-0ubuntu2) precise; urgency=low
+
+  * debian/control: Add dependencies previously removed from python-magnetodb
+    to magnetodb package where they are actually required. (LP: #899970).
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 08 Dec 2011 11:23:49 -0500
+
+magnetodb (2012.1~e2~20111201.1123-0ubuntu1) precise; urgency=low
+
+  [Chuck Short]
+  * New upstream release.
+
+  [Jay Pipes]
+  * Removes now-unnecessary dependencies from client package
+  * Rewrote the description for the Glance project to remove
+    ancient language about Teller and Parallax.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 02 Dec 2011 12:53:54 -0500
+
+magnetodb (2012.1~e2~20111125.1118-0ubuntu1) precise; urgency=low
+
+  * New upstream version.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 25 Nov 2011 10:53:04 -0500
+
+magnetodb (2012.1~e2~20111117.1112-0ubuntu1) precise; urgency=low
+
+  * New upstrem release. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 18 Nov 2011 09:07:13 -0500
+
+magnetodb (2012.1~e1-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * Sync with upstream changes. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 11 Nov 2011 13:50:35 -0500
+
+magnetodb (2012.1~e1~20111021.1056-0ubuntu1) precise; urgency=low
+
+  * New upstream release. 
+  * Dropped patches:
+    - debian/patches/lp_845788_magnetodb_client_zero_length.patch
+    - debian/patches/lp_850425_remote_swift_image_streaming.patch
+  * debian/control: 
+    - Add dependency on python-httplib2. (LP: #779311)
+    - Add dependency on python-paste. 
+  * debian/patches/sql_conn.patch: Updated for update config file.
+  * debian/magnetodb.install: Update for new config files.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 21 Oct 2011 14:11:04 -0400
+
+magnetodb (2011.3-0ubuntu4) oneiric; urgency=low
+
+  [ Adam Gandelman ]
+  * debian/magnetodb.postinst: Restrict permissions of /etc/magnetodb/ and
+    /var/log/magnetodb/ (LP: #862844)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 30 Sep 2011 16:00:33 -0400
+
+magnetodb (2011.3-0ubuntu3) oneiric; urgency=low
+
+  [Scott Moser]
+  * fix bug with magnetodb and swift driver that resulted in zero length
+    images.  (LP: #845788)
+
+  [Chuck Short]
+  * Make streaming images from swift actually usuable.
+    (LP: #850425)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 27 Sep 2011 14:49:05 -0400
+
+magnetodb (2011.3-0ubuntu2) oneiric; urgency=low
+
+  * debian/magnetodb.{postinst,postrm}: Fix syntax error, /dev/null redirect
+    typos.  Only remove user/group in .postrm if they exist. (LP: #857021)
+
+ -- Adam Gandelman <adamg@canonical.com>  Thu, 22 Sep 2011 21:03:26 -0700
+
+magnetodb (2011.3-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release. 
+  * debian/magnetodb.postinst: Add magnetodb group and add magnetodb user to it.
+    (LP: #851860)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 22 Sep 2011 10:45:33 -0400
+
+magnetodb (2011.3~rc~20110915.r1007-0ubuntu1) oneiric; urgency=low
+
+  [ Chuck Short ]
+  * New upstream release. 
+  * debian/rules: Dont fail to build because of broken testsuite.
+
+  [ Monty Taylor ]
+  * Added branch condition to fix build on lucid.
+
+ -- Monty Taylor <mordred@inaugust.com>  Mon, 19 Sep 2011 13:03:41 -0400
+
+magnetodb (2011.3~rc~20110908.r1005-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 09 Sep 2011 14:59:27 -0400
+
+magnetodb (2011.3~rc~20110831.1002-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 02 Sep 2011 13:50:13 -0400
+
+magnetodb (2011.3~d4-0ubuntu1) oneiric; urgency=low
+
+  [Chuck Short]
+  * New upstream release.
+
+  [ Monty Taylor ]
+  * New upstream release.
+  * Added python-kombu as Depends and Build-depends.
+
+  [ Scott Moser ]
+  * magnetodb.postinst: use a trailing slash when using chown on directories
+  
+  [ Ben Howard ]
+  * Install /etc/magnetodb-scrubber.conf by default (LP: #816972)
+  * Remove magnetodb user and logs on purge (LP: #828721)
+  * Converted dh to use "--with python2".
+  * Incremented standards version to 3.9.2; no changes required
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 26 Aug 2011 10:13:39 -0400
+
+magnetodb (2011.3~d4~20110811.980-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 12 Aug 2011 05:23:21 -0400
+
+magnetodb (2011.3~d3~20110709.152-0ubuntu2) UNRELEASED; urgency=low
+
+  [ Adam Gandelman ]
+  * Add python-xattr to Depends of python-magnetodb
+
+  [ Jay Pipes ]
+  * Add python-boto to Build-depends.
+
+  [ Dan Prince ]
+  * Updates to support magnetodb caching config files and directories.
+
+ -- Monty Taylor <mordred@inaugust.com>  Tue, 02 Aug 2011 08:55:11 -0700
+
+magnetodb (2011.3~d3~20110709.152-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream snapshot.
+  * Remove python-daemon as a dependency again.
+  * Make Vcs-* headers point to the packaging trunk (instead of the
+    natty branch).
+
+ -- Soren Hansen <soren@ubuntu.com>  Tue, 12 Jul 2011 21:57:41 +0200
+
+magnetodb (2011.3~d3~20110707.151-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release.
+  * debian/control: python-hashlib
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 08 Jul 2011 12:59:49 -0400
+
+magnetodb (2011.3~d2-0ubuntu2) oneiric; urgency=low
+
+  * debian/control: Add python-httplib2. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 30 Jun 2011 17:42:46 +0100
+
+magnetodb (2011.3~d2-0ubuntu1) oneiric; urgency=low
+
+  [Chuck Short]
+  * New upstream release.
+  
+  [Adam Gandelman]
+  * Remove shell redirects in upstart jobs to ensure correct permissions
+    on logfiles. (LP: #784837)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 30 Jun 2011 17:20:19 +0100
+
+magnetodb (2011.3~d1-0ubuntu2) UNRELEASED; urgency=low
+
+  *  debian/control: Dropped python-daemon, its not used anywhere.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 23 Jun 2011 15:37:22 -0400
+
+magnetodb (2011.3~d1-0ubuntu1) oneiric; urgency=low
+
+  * New Upstream release.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 02 Jun 2011 09:38:43 -0400
+
+magnetodb (2011.2~bzr132-0ubuntu1) oneiric; urgency=low
+
+  [ Soren Hansen ]
+  * Fix accidentally inverted logic that protects against upgrading
+    shared databases.
+  * Fix the call that is supposed to upgrade the sqlite database.
+  * Make sure python modules are completely configured once python-
+    magnetodb's postinst is done. (LP: #778463)
+  * Make sure doc/build exists once we try to build docs. We remove it
+    on clean, and older versions of sphinx do not make sure to create
+    it.
+
+  [ Dan Prince ]
+  * Add support for DEB_BUILD_OPTIONS=nocheck,nodocs.
+  * Updated to support new magnetodb-api.conf and magnetodb-registry.conf files.
+  * Updated log file locations in the upstart scripts to match new config
+    file defaults.
+
+ -- Soren Hansen <soren@ubuntu.com>  Wed, 25 May 2011 15:57:15 +0200
+
+magnetodb (2011.2-0ubuntu1) natty; urgency=low
+
+  * New upstream version. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 15 Apr 2011 08:18:16 -0400
+
+magnetodb (2011.2~bzr108-0ubuntu1) natty; urgency=low
+
+  [ Soren Hansen ]
+  * Run test suite during build
+  * Add pep8 as a build-dependency.
+  * Add python-{daemon,eventlet,sqlalchemy} as dependencies of python-
+    magnetodb. Add python-argparse as a dependency of magnetodb.
+  * Add dependency on python-pastedeploy and python-migrate.
+  * Remove deps on Twisted and gflags.
+  * Add curl to build-depends. The test suite needs it.
+  * Add dep on python-argparse.
+  * Build-depend on python-swift. The test suite needs the Swift client.
+  * Install magnetodb-api and magnetodb-registry upstart jobs. (LP: #757404)
+  * Create and chown /var/log/magnetodb directory on install.
+  * Install sample config by default.
+  * Create db on install.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 12 Apr 2011 09:52:06 -0400
+
+magnetodb (0.1.3pre~bzr39-0ubuntu1) natty; urgency=low
+
+  * Initial upload.
+
+ -- Soren Hansen <soren@ubuntu.com>  Wed, 19 Jan 2011 12:01:32 +0100
