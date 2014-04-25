@@ -1,0 +1,1 @@
+../../../../../../../../../share/pyshared/magnetodb/tests/unittests/api/openstack/v1/test_scan.py

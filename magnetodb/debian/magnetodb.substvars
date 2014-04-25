@@ -1,0 +1,3 @@
+python:Versions=2.7
+python:Depends=python2.7, python (>= 2.7), python (<< 2.8), python (>= 2.7.1-0ubuntu2), python, python-blist, python-futures, python-gevent, gunicorn, python-iso8601, python-jsonschema, python-oslo.config, python-pbr, python-keystoneclient, python-scales, python-babel, python-pastedeploy, python-routes, python-webob
+misc:Depends=

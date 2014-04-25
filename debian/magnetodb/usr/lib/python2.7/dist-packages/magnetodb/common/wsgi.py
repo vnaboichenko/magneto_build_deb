@@ -1,0 +1,1 @@
+../../../../../share/pyshared/magnetodb/common/wsgi.py

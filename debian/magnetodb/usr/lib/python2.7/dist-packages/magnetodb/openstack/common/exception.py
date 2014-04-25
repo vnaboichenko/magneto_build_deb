@@ -1,0 +1,1 @@
+../../../../../../share/pyshared/magnetodb/openstack/common/exception.py

@@ -1,0 +1,1 @@
+../../../../../../../../share/pyshared/magnetodb/api/amz/dynamodb/action/create_table.py

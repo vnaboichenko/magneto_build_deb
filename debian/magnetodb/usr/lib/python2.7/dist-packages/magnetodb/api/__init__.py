@@ -1,0 +1,1 @@
+../../../../../share/pyshared/magnetodb/api/__init__.py

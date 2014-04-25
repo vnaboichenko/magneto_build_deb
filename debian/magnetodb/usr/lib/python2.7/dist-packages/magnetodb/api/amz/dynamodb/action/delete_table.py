@@ -1,0 +1,1 @@
+../../../../../../../../share/pyshared/magnetodb/api/amz/dynamodb/action/delete_table.py

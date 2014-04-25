@@ -1,0 +1,3 @@
+/var/log/magnetodb
+/var/run/magnetodb
+/etc/magnetodb/

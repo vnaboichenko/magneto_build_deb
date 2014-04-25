@@ -1,0 +1,1 @@
+../../../../../../../share/pyshared/magnetodb/api/amz/dynamodb/__init__.py

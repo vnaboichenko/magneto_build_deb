@@ -1,0 +1,37 @@
+#!/usr/bin/make -f
+
+# Verbose mode
+#export DH_VERBOSE=1
+
+WITH_PYTHON2 = $(shell test -f /usr/bin/dh_python2 && echo "--with python2")
+
+%:
+	dh $@ ${WITH_PYTHON2}
+
+#get-orig-source:
+#	uscan --verbose --force-download --rename --destdir=../build-area
+
+UPSTREAM_GIT=https://github.com/stackforge/magnetodb.git
+DEBIAN_VERSION=$(shell dpkg-parsechangelog |  sed -n 's/^Version: \(.*\)-[^-]*/\1/p')
+DEBIAN_NAME=magnetodb
+
+get-orig-source-git:
+	git clone $(UPSTREAM_GIT) $(DEBIAN_NAME)
+	cd $(DEBIAN_NAME) ; \
+	python setup.py sdist ; \
+	mv dist/magnetodb-2.0.1.dev19.g554ee80.tar.gz ../magnetodb_$(DEBIAN_VERSION).orig.tar.gz
+
+override_dh_install:
+	dh_install
+
+
+override_dh_auto_build:
+	dh_auto_build
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf doc/build
+	rm -rf magnetodb.sqlite
+
+override_dh_installinit:
+	dh_installinit --name magnetodb

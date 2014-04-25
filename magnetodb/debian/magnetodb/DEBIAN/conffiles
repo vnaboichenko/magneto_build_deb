@@ -1,0 +1,10 @@
+/etc/init.d/openstack-magnetodb-api
+/etc/init.d/openstack-magnetodb-api-gunicorn
+/etc/magnetodb/api-paste-gunicorn.ini
+/etc/magnetodb/magnetodb-api-test.conf
+/etc/magnetodb/api-paste.ini
+/etc/magnetodb/api-paste-test.ini
+/etc/magnetodb/magnetodb-api-server.conf
+/etc/magnetodb/magnetodb-api-server-gunicorn.conf
+/etc/magnetodb/magnetodb-api.conf
+/etc/logrotate.d/magnetodb

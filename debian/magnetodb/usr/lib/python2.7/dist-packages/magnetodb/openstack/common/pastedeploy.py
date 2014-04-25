@@ -1,0 +1,1 @@
+../../../../../../share/pyshared/magnetodb/openstack/common/pastedeploy.py

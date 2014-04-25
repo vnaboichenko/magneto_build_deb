@@ -1,0 +1,1 @@
+../../../../../share/pyshared/magnetodb/common/config.py

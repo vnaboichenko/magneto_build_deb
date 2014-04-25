@@ -1,0 +1,40 @@
+Format: 1.8
+Date: Wed, 24 Apr 2013 14:58:09 +0200
+Source: magnetodb
+Binary: magnetodb
+Architecture: source all
+Version: 2012.1.3+stable-20130423-74b067df-0ubuntu1
+Distribution: precise-proposed
+Urgency: low
+Maintainer: root <root@unknown>
+Changed-By: Yolanda <yolanda.robla@canonical.com>
+Description: 
+ magnetodb  - <insert up to 60 chars description>
+Launchpad-Bugs-Fixed: 1065187 1073569 1089488
+Changes: 
+ magnetodb (2012.1.3+stable-20130423-74b067df-0ubuntu1) precise-proposed; urgency=low
+ .
+   * Resynchronize with stable/essex (74b067df) (LP: #1089488):
+     - [74b067d] v1 api returns location as header for cached images LP: 1135541
+     - [37d4d96] magnetodb image-download can display backend Swift password
+       LP: 1098962
+     - [efd7e75] Non-admin users can cause public magnetodb images to be deleted
+       from the backend storage repository (LP: #1065187)
+     - [e6be061] Jenkins jobs fail because of incompatibility between sqlalchemy-
+       migrate and the newest sqlalchemy-0.8.0b1 (LP: #1073569)
+   * Dropped patches, superseeded by snapshot:
+     - debian/patches/CVE-2013-1840.patch [74b067d]
+     - debian/patches/CVE-2013-0212.patch [37d4d96]
+     - debian/patches/CVE-2012-4573.patch [efd7e75]
+Checksums-Sha1: 
+ 1b735f73c23bd601c642f7ad6cdebd1b42f1a394 945 magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1.dsc
+ 9d051532e444c793bf93e7d180c22b7febe5d802 1316373 magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1.tar.gz
+ 4f1e2f58ee755891867e2cca1f824a6c4c41cf50 118452 magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1_all.deb
+Checksums-Sha256: 
+ a823942861c666dccf00ddb0ff276d2d725b02af114a51263adae609ecc7c79e 945 magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1.dsc
+ 8d8a0a81392bdb0b11051387dab2e8f6bddcaa2dbef8350aeaf6064f906f70b0 1316373 magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1.tar.gz
+ e1e132701b3041d6199eb18543209e3189095ccc875f4572f2416c837a89eb54 118452 magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1_all.deb
+Files: 
+ b40fb2cbe87fdd55dcdd21eec00d2923 945 unknown extra magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1.dsc
+ bf2f9e445f2daa8180b22b404f9a2137 1316373 unknown extra magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1.tar.gz
+ ee8368bdb791ba733798b73bf8d9ca3f 118452 unknown extra magnetodb_2012.1.3+stable-20130423-74b067df-0ubuntu1_all.deb

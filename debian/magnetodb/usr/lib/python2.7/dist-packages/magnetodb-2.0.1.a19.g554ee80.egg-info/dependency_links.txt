@@ -1,0 +1,1 @@
+../../../../share/pyshared/magnetodb-2.0.1.a19.g554ee80.egg-info/dependency_links.txt
